@@ -26,14 +26,6 @@ int main(int argc, char** argv) {
   int begin = rank * (ny / size);
   int end = (rank + 1) * (ny / size);
 
-//  matrix u(ny,vector<float>(nx));
-//  matrix v(ny,vector<float>(nx));
-//  matrix p(ny,vector<float>(nx));
-//  matrix b(ny,vector<float>(nx));
-//  matrix un(ny,vector<float>(nx));
-//  matrix vn(ny,vector<float>(nx));
-//  matrix pn(ny,vector<float>(nx));
-
   float u[ny][nx], v[ny][nx], p[ny][nx], b[ny][nx], un[ny][nx], vn[ny][nx], pn[ny][nx];
 
   for (int j=0; j<ny; j++) {
@@ -58,11 +50,6 @@ int main(int argc, char** argv) {
       }
 
     MPI_Allgather(&b[begin], nx * (end-begin), MPI_FLOAT, b, nx * (end-begin), MPI_FLOAT, MPI_COMM_WORLD);
-//    for (int j=1; j<ny-1; j++){
-//      for (int i=1; i<nx-1; i++){
-//	b[j][i] = bn[j][i];
-//      }
-//    }
 
     }
     for (int it=0; it<nit; it++) {
@@ -109,12 +96,6 @@ int main(int argc, char** argv) {
     }
     MPI_Allgather(&u[begin], nx * (end-begin), MPI_FLOAT, u, nx * (end-begin), MPI_FLOAT, MPI_COMM_WORLD);
     MPI_Allgather(&v[begin], nx * (end-begin), MPI_FLOAT, v, nx * (end-begin), MPI_FLOAT, MPI_COMM_WORLD);
-//    for (int j=0; j<ny; j++) {
-//      for (int i=0; i<nx; i++) {
-//        u[j][i] = un[j][i];
-//        v[j][i] = vn[j][i];
-//      }
-//    }
 
     for (int j=0; j<ny; j++) {
       u[j][0]  = 0;
